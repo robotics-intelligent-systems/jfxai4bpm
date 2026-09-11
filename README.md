@@ -1,6 +1,6 @@
 # JFXAI4BPM — Multi-Domain Business Process Simulation & Automation Integration Architecture
 
-## Collaborative Development · Recruitment · Contests · Microfactories · Farms · Air Transport · Trading · Open Banking
+## Collaborative Development · LMS · Social/Tourism · Hospitality · Restaurants · Fleet/Trucks · E-Commerce · Recruitment · Contests · Microfactories · Farms · Air Transport · Trading · Open Banking · Balanced Scorecard
 
 > **Target repository:** `robotics-intelligent-systems/jfxai4bpm`
 >
@@ -9,13 +9,20 @@
 > **Integrated project domains:**
 >
 > - Collaborative development / open-source engineering — `jfxcms`
+> - Learning management, simulation and certification — `jfxlms`
+> - Social intelligence, adult optional matchmaking, community and tourism — `jfxai4mad`
+> - Hospitality / hotel-management capability — `jfxai4crm`, with travel linkage to `jfxotbs`
+> - Restaurant and mobile food-service operations — `jfxai4ftm`
+> - Truck / fleet management — `fleet-management`
+> - B2B e-commerce / marketplace / procurement — `jfxai4ohs`
 > - Recruitment — `jfxai4rts`
 > - Programming contests / collaborative engineering education — `jfxcms`
 > - Microfactory — `jfxosms`
 > - Farm management — `jfxfmis`
-> - Air transport / airline operations — `jfxotbs`
+> - Air transport / airline operations / travel booking — `jfxotbs`
 > - Automated trading — `jfxai4ats`
 > - Open banking / lending / payments — `jfxai4obs`
+> - Balanced Scorecard / KPI / OKR governance — `jfxbsc`
 >
 > **Key architectural rule:** each project remains the **system of record for its own domain**. JFXAI4BPM coordinates and simulates processes across those systems through canonical process contracts, events, rules, APIs, and digital-twin/simulation adapters.
 
@@ -112,25 +119,36 @@ AUTOMATE
 # 3. Integrated Portfolio Map
 
 ```text
-                         JFXAI4BPM
-                    PROCESS CONTROL PLANE
-                             │
-      ┌──────────────┬───────┼────────┬─────────┐
-      ▼              ▼       ▼        ▼         ▼
- contributors       Recruitment Contest Microfactory Farm
- Service          jfxai4rts   jfxcms  jfxosms   jfxfmis
-      │              │        │        │         │
-      └──────────────┼────────┼────────┼─────────┘
-                     │
-      ┌──────────────┼───────────────┐
-      ▼              ▼               ▼
- Air Transport     Trading       Open Banking
-  jfxotbs         jfxai4ats       jfxai4obs
-      │              │               │
-      └──────────────┼───────────────┘
-                     ▼
-             Enterprise Outcomes
+                                      JFXAI4BPM
+                               PROCESS CONTROL PLANE
+                                        │
+        ┌──────────────┬────────────────┼────────────────┬───────────────┐
+        ▼              ▼                ▼                ▼               ▼
+      JFXLMS         JFXCMS          JFXAI4MAD       Hospitality     JFXAI4FTM
+   Learning/Skills  Collaborative   Social/Tourism     / Hotels      Restaurants
+                      Dev/Contest                        │          / Food Trucks
+        │              │                │               │               │
+        └──────────────┴────────────────┼───────────────┴───────────────┘
+                                        │
+        ┌──────────────┬────────────────┼────────────────┬───────────────┐
+        ▼              ▼                ▼                ▼               ▼
+ Fleet / Trucks    E-Commerce      Recruitment      Microfactory       Farms
+fleet-management   JFXAI4OHS       JFXAI4RTS        JFXOSMS          JFXFMIS
+        │              │                │                │               │
+        └──────────────┴────────────────┼────────────────┴───────────────┘
+                                        │
+                          ┌─────────────┼──────────────┐
+                          ▼             ▼              ▼
+                    Air / Travel      Trading       Open Banking
+                      JFXOTBS       JFXAI4ATS       JFXAI4OBS
+                          │             │              │
+                          └─────────────┼──────────────┘
+                                        ▼
+                                      JFXBSC
+                          Strategy / KPI / OKR / Dashboard
 ```
+
+JFXAI4BPM coordinates the process graph; each project remains authoritative for its own data and domain rules.
 
 ---
 
@@ -148,6 +166,13 @@ JFXAI4BPM must not duplicate domain state unnecessarily.
 | Air transport | JFXOTBS | Coordinate booking/operations/crew/maintenance processes |
 | Trading | JFXAI4ATS | Simulate strategy/risk/execution workflows |
 | Open banking | JFXAI4OBS | Coordinate consent/lending/payment/risk workflows |
+| Learning / certification | JFXLMS | Orchestrate learning assignments, simulation labs, skill evidence and certification preparation |
+| Social / tourism | JFXAI4MAD | Orchestrate community, tourism and adult opt-in social workflows while preserving personal-data separation |
+| Hospitality / hotels | JFXAI4CRM hotel-management capability + JFXOTBS travel linkage | Coordinate reservation, guest-service, housekeeping and travel handoffs |
+| Restaurants / mobile food service | JFXAI4FTM | Coordinate menu, order, kitchen, inventory, delivery and mobile-food operations |
+| Truck / fleet management | fleet-management | Coordinate vehicle assignment, telemetry-driven maintenance, dispatch and logistics |
+| B2B e-commerce | JFXAI4OHS | Coordinate catalog, quote/order, procurement, marketplace and fulfillment workflows |
+| Strategy / integrated dashboard | JFXBSC | Consume process/business metrics and map them to objectives, KPIs, OKRs and initiatives |
 
 ---
 
@@ -3610,16 +3635,1063 @@ Both reuse the same project ecosystem while keeping their process models indepen
 
 ---
 
-# 166. Disclaimer
+# 166. Extended Service-Economy Integration
 
-This document is an integration architecture proposal built from the current project descriptions.
+This extension adds the following operational contexts to the JFXAI4BPM control plane:
 
-It does not claim that all listed platforms are installed runtime dependencies.
+```text
+Learning
+Social / Tourism
+Hospitality
+Restaurants
+Ground Fleet
+E-Commerce
+Open Banking
+Balanced Scorecard
+```
 
-For each domain:
+The goal is to create a reusable orchestration layer for a complete service-economy journey:
 
-- the domain project remains authoritative;
-- simulation results are models, not facts;
-- AI recommendations are not automatically decisions;
-- safety-critical, employment, trading, credit, payment, and other consequential workflows require appropriate policy, security, legal/regulatory, and human controls;
-- production integrations should be validated against current APIs and actual deployed software.
+```text
+Discover
+   ↓
+Learn / Qualify / Prepare
+   ↓
+Search / Recommend
+   ↓
+Reserve / Order
+   ↓
+Pay / Finance
+   ↓
+Deliver / Travel / Consume Service
+   ↓
+Support
+   ↓
+Measure
+   ↓
+Improve
+```
+
+---
+
+# 167. Extended Domain Ownership
+
+```text
+JFXAI4BPM
+owns:
+process state
+orchestration
+timers
+human tasks
+cross-domain sagas
+simulation
+rules
+process analytics
+
+Domain projects
+own:
+customer/domain master data
+specialized business rules
+transactions
+domain-specific models
+authoritative operational state
+```
+
+This avoids turning JFXAI4BPM into a monolithic ERP.
+
+---
+
+# 168. LMS Integration — JFXLMS
+
+JFXLMS becomes the learning and qualification bounded context.
+
+```text
+Business Role / Process Need
+        ↓
+Required Skill
+        ↓
+JFXLMS Learning Path
+        ↓
+Course / Simulation / Lab
+        ↓
+Assessment
+        ↓
+Skill Evidence
+        ↓
+JFXAI4BPM Role Eligibility
+```
+
+Potential BPM use cases:
+
+- employee onboarding;
+- hotel/front-desk training;
+- restaurant food-service training;
+- fleet operator training;
+- tourism-service training;
+- e-commerce operations training;
+- process-simulator training;
+- Microsoft certification preparation;
+- compliance refresher workflows.
+
+---
+
+# 169. LMS Process Automation
+
+```text
+Role Assigned
+    ↓
+Training Requirements
+    ↓
+Existing Evidence?
+   ├── Yes → validate
+   └── No
+        ↓
+     JFXLMS Path
+        ↓
+     Simulation Lab
+        ↓
+     Assessment
+        ↓
+     Completion Event
+        ↓
+Process Role Activated
+```
+
+JFXAI4BPM may automate reminders and workflow transitions.
+
+Actual professional licenses or regulated qualifications must be verified against their official issuer.
+
+---
+
+# 170. JFXAI4MAD Integration
+
+JFXAI4MAD contributes two distinct bounded contexts:
+
+```text
+A. COMMUNITY / TOURISM / SOCIAL DISCOVERY
+B. OPTIONAL ADULT RELATIONSHIP DISCOVERY
+```
+
+They must remain separated from:
+
+- employment;
+- academic assessment;
+- financing;
+- investment;
+- housing benefits;
+- service-provider compensation.
+
+The professional/community flow can be:
+
+```text
+Interest
+   ↓
+Activity / Destination Discovery
+   ↓
+Tourism / Cultural Recommendation
+   ↓
+Optional Event Participation
+   ↓
+Community Interaction
+```
+
+---
+
+# 171. Adult Optional Matchmaking Workflow
+
+For the relationship-oriented layer:
+
+```text
+Adult User 18+
+    ↓
+Explicit Opt-In
+    ↓
+Privacy / Safety Controls
+    ↓
+Voluntary Preferences
+    ↓
+Compatibility Recommendation
+    ↓
+Mutual Interest
+    ↓
+User-Controlled Conversation
+    ↓
+Optional Meeting
+```
+
+JFXAI4BPM may coordinate:
+
+- consent state;
+- safety checks;
+- notification workflows;
+- preference changes;
+- report/block handling;
+- user-controlled scheduling.
+
+It should not automate:
+
+- partner assignment;
+- sexual or marital decisions;
+- coercive persistence;
+- access to benefits based on relationship outcomes.
+
+---
+
+# 172. Tourism Orchestration
+
+Tourism combines JFXAI4MAD with JFXOTBS and hospitality/restaurant/fleet services.
+
+```text
+Traveler Intent
+      ↓
+Destination / Activity Recommendation
+      ↓
+Transport Search
+      ↓
+Hotel Search
+      ↓
+Restaurant / Experience Search
+      ↓
+Itinerary
+      ↓
+Reservation Workflow
+      ↓
+Payment
+      ↓
+Trip Execution
+      ↓
+Feedback
+```
+
+JFXAI4BPM becomes the itinerary/process coordinator, while each reservation source remains authoritative.
+
+---
+
+# 173. Hospitality / Hotel Management
+
+The currently verified portfolio contains hotel-management capability inside JFXAI4CRM and travel/property-management references in JFXOTBS.
+
+Model hospitality as its own bounded context:
+
+```text
+Guest Inquiry
+     ↓
+Availability
+     ↓
+Reservation
+     ↓
+Deposit / Payment
+     ↓
+Pre-Arrival
+     ↓
+Check-In
+     ↓
+Stay
+     ↓
+Housekeeping / Service Requests
+     ↓
+Check-Out
+     ↓
+Invoice
+     ↓
+Feedback
+```
+
+Canonical objects:
+
+```text
+Property
+Room / Unit
+Rate Plan
+Reservation
+Guest
+Stay
+Service Request
+Housekeeping Task
+Invoice
+```
+
+---
+
+# 174. Hotel + Tourism Saga
+
+```text
+Create Itinerary
+    ↓
+Reserve Flight
+    ↓
+Reserve Hotel
+    ↓
+Reserve Ground Transport
+    ↓
+Optional Restaurant Reservation
+    ↓
+Payment Confirmation
+```
+
+Failure handling:
+
+```text
+Hotel unavailable
+    ↓
+Offer alternatives
+    ↓
+If traveler rejects:
+compensate dependent reservations according to policy
+```
+
+Use saga/compensation rather than distributed database transactions.
+
+---
+
+# 175. Restaurant & Mobile Food-Service Integration — JFXAI4FTM
+
+JFXAI4FTM already models food-truck operations, restaurant management, POS, ordering, delivery, fleet logistics, IoT, routing and digital twins.
+
+JFXAI4BPM orchestration:
+
+```text
+Customer Order
+      ↓
+Menu Validation
+      ↓
+Payment Authorization
+      ↓
+Kitchen Queue
+      ↓
+Preparation
+      ↓
+Quality / Completion
+      ↓
+Pickup or Delivery
+      ↓
+Settlement
+      ↓
+Feedback
+```
+
+Operational process twin:
+
+```text
+Orders
+   ↓
+Kitchen Capacity
+   ↓
+Queue
+   ↓
+Preparation Time
+   ↓
+Delivery Capacity
+   ↓
+SLA / Customer Outcome
+```
+
+---
+
+# 176. Restaurant Supply Process
+
+```text
+Demand Forecast
+      ↓
+Inventory Projection
+      ↓
+Reorder Point
+      ↓
+Supplier / E-Commerce Procurement
+      ↓
+Open Banking Payment
+      ↓
+Truck / Fleet Delivery
+      ↓
+Goods Receipt
+      ↓
+Restaurant Inventory
+```
+
+This creates a direct process bridge among:
+
+```text
+JFXAI4FTM
+JFXAI4OHS
+JFXAI4OBS
+fleet-management
+JFXAI4BPM
+```
+
+---
+
+# 177. Truck / Fleet Integration — fleet-management
+
+The fleet-management project provides a truck-fleet blueprint with software-defined vehicle concepts, vehicle telemetry, VSS-style data, backend services and fleet-management APIs.
+
+JFXAI4BPM should orchestrate:
+
+```text
+Transport Request
+      ↓
+Vehicle Availability
+      ↓
+Driver / Operator Assignment
+      ↓
+Route
+      ↓
+Dispatch
+      ↓
+Vehicle Telemetry
+      ↓
+Delivery
+      ↓
+Proof of Completion
+```
+
+---
+
+# 178. Fleet Maintenance Process
+
+```text
+Vehicle Telemetry
+      ↓
+Threshold / Condition Rule
+      ↓
+Maintenance Needed?
+   ├── No → continue
+   └── Yes
+        ↓
+     Work Order
+        ↓
+     Vehicle Removed from Allocation
+        ↓
+     Maintenance
+        ↓
+     Verification
+        ↓
+     Return to Fleet
+```
+
+Simulation KPIs:
+
+```text
+Fleet Utilization
+On-Time Delivery
+Distance
+Energy / Fuel
+Idle Time
+Maintenance Downtime
+Vehicle Availability
+Route Delay
+```
+
+---
+
+# 179. Integrated Travel & Experience Process
+
+One end-to-end service process can combine the new domains:
+
+```text
+Adult Traveler
+      ↓
+JFXAI4MAD
+Destination / Cultural / Activity Discovery
+      ↓
+JFXOTBS
+Travel / Air Booking
+      ↓
+Hospitality
+Hotel Reservation
+      ↓
+fleet-management
+Ground Transport
+      ↓
+JFXAI4FTM
+Restaurant / Food Service
+      ↓
+JFXAI4OBS
+Payment / Open-Banking Consent
+      ↓
+Trip / Experience
+      ↓
+JFXBSC
+Service & Business KPIs
+```
+
+An optional dating/social step may exist only as an independent adult opt-in branch:
+
+```text
+Activity / Community Event
+        ↓
+Mutual Adult Interest
+        ↓
+Private User-Controlled Interaction
+```
+
+It must not affect hotel, transport, restaurant, education, employment, investment, or financial-service eligibility.
+
+---
+
+# 180. E-Commerce Integration — JFXAI4OHS
+
+JFXAI4OHS becomes the B2B commerce and procurement bounded context.
+
+Core process:
+
+```text
+Buyer Need
+    ↓
+Product Discovery
+    ↓
+Compare / Configure
+    ↓
+Quote / RFQ
+    ↓
+Approval
+    ↓
+Order
+    ↓
+Payment / Finance
+    ↓
+Fulfillment
+    ↓
+Delivery
+    ↓
+After-Sales
+```
+
+JFXAI4BPM owns the cross-domain orchestration; JFXAI4OHS owns catalog, marketplace, procurement, order and supplier logic.
+
+---
+
+# 181. E-Commerce + Open Banking
+
+Direct integration:
+
+```text
+JFXAI4OHS
+Order / Purchase
+      ↓
+JFXAI4BPM
+Payment Process
+      ↓
+JFXAI4OBS
+Consent / Identity / Payment
+      ↓
+Payment Result
+      ↓
+JFXAI4BPM
+      ↓
+JFXAI4OHS
+Order Confirmed
+```
+
+For B2B financing:
+
+```text
+Purchase Order
+      ↓
+Working Capital Needed?
+   ├── No → Payment
+   └── Yes
+        ↓
+     Financing Request
+        ↓
+     JFXAI4OBS Lending Workflow
+        ↓
+     Authorized Decision
+        ↓
+     Purchase Execution
+```
+
+---
+
+# 182. E-Commerce Fulfillment + Fleet
+
+```text
+Confirmed Order
+      ↓
+Warehouse / Supplier
+      ↓
+Fulfillment Plan
+      ↓
+Fleet Capacity
+      ↓
+Truck Assignment
+      ↓
+Delivery
+      ↓
+Proof of Delivery
+      ↓
+Order Completion
+```
+
+For restaurant procurement:
+
+```text
+Restaurant Stock Need
+      ↓
+JFXAI4OHS Supplier / Product Search
+      ↓
+Open Banking Payment
+      ↓
+Fleet Delivery
+      ↓
+Restaurant Receipt
+```
+
+---
+
+# 183. Open Banking Boundary — JFXAI4OBS
+
+Open banking remains authoritative for:
+
+- consent;
+- account-access authorization;
+- payments;
+- lending;
+- financial-risk controls;
+- financial audit.
+
+JFXAI4BPM coordinates process state but must not store unnecessary banking credentials.
+
+```text
+Commerce / Travel / Hotel / Restaurant
+        ↓
+Payment Request
+        ↓
+JFXAI4BPM
+        ↓
+JFXAI4OBS
+        ↓
+Authorized Payment / Financing Result
+```
+
+---
+
+# 184. Integrated Balanced Scorecard — JFXBSC
+
+JFXBSC becomes the strategic measurement plane.
+
+```text
+Domain Events
+     ↓
+JFXAI4BPM Process Metrics
+     ↓
+Semantic KPI Mapping
+     ↓
+JFXBSC
+     ↓
+Objectives / KPIs / OKRs
+     ↓
+Initiatives
+     ↓
+Management Dashboard
+```
+
+JFXBSC does not execute domain transactions; it measures strategic outcomes.
+
+---
+
+# 185. Balanced Scorecard Perspective Mapping
+
+```text
+FINANCIAL
+Revenue
+Margin
+Cost per Order
+Payment Success
+Working Capital
+ROAS / Channel ROI
+
+CUSTOMER
+Guest Satisfaction
+Traveler Satisfaction
+Restaurant SLA
+Delivery SLA
+Retention
+Support Resolution
+
+INTERNAL PROCESS
+Booking Cycle Time
+Hotel Check-In Time
+Kitchen Throughput
+Fleet Delivery Time
+Order Fulfillment Time
+Payment Processing Time
+
+LEARNING & GROWTH
+JFXLMS Completion
+Skill Coverage
+Simulation Proficiency
+Staff Readiness
+Process Improvement Adoption
+```
+
+---
+
+# 186. Integrated KPI Examples
+
+```yaml
+kpi:
+  name: end_to_end_travel_booking_cycle_time
+  source:
+    process: integrated_travel_experience
+  dimensions:
+    - destination
+    - channel
+    - transport_mode
+  owner: travel_operations
+  target: "< configured target"
+```
+
+```yaml
+kpi:
+  name: ecommerce_payment_success_rate
+  numerator: payments_completed
+  denominator: payment_attempts
+  source_domains:
+    - jfxai4ohs
+    - jfxai4obs
+  owner: commerce_finance
+```
+
+```yaml
+kpi:
+  name: restaurant_supply_on_time_rate
+  source_domains:
+    - jfxai4ftm
+    - fleet-management
+    - jfxai4ohs
+```
+
+---
+
+# 187. Unified Event Model
+
+New canonical events:
+
+```text
+learning.completed
+skill.evidence.validated
+
+social.activity.discovered
+social.opt_in.changed
+
+tourism.itinerary.created
+tourism.activity.reserved
+
+hotel.reservation.created
+hotel.checkin.completed
+hotel.service.requested
+hotel.checkout.completed
+
+restaurant.order.created
+restaurant.order.ready
+restaurant.delivery.requested
+
+fleet.vehicle.assigned
+fleet.trip.started
+fleet.delivery.completed
+fleet.maintenance.required
+
+commerce.quote.created
+commerce.order.confirmed
+commerce.fulfillment.started
+commerce.delivery.completed
+
+banking.consent.granted
+banking.payment.completed
+banking.financing.approved
+
+bsc.kpi.updated
+bsc.objective.threshold_breached
+```
+
+---
+
+# 188. Data Separation & Privacy
+
+The unified process graph must not become a unified personal-data dump.
+
+```text
+LMS Data
+        │
+Hospitality Data
+        │
+Commerce Data
+        │
+Financial Data
+        │
+Optional Relationship Data
+        │
+        ▼
+SEPARATE DOMAIN STORES
+        │
+        ▼
+Purpose-Limited Process Events
+```
+
+Critical constraints:
+
+```text
+Relationship preference
+≠ employment criterion
+
+Relationship preference
+≠ academic criterion
+
+Relationship preference
+≠ lending criterion
+
+Relationship preference
+≠ pricing criterion
+
+Relationship preference
+≠ hotel / restaurant / transport eligibility
+```
+
+All relationship-oriented processing is adult-only and opt-in.
+
+---
+
+# 189. Updated Source Project Registry
+
+```yaml
+domains:
+  learning:
+    source: robotics-intelligent-systems/jfxlms
+    scope: LMS, simulations, skill evidence, professional learning
+
+  collaborative_development:
+    source: robotics-intelligent-systems/jfxcms
+    scope: collaborative development, crowdsourcing, contests
+
+  social_tourism:
+    source: robotics-intelligent-systems/jfxai4mad
+    scope: tourism, culture, community discovery, adult optional matchmaking
+
+  hospitality:
+    source: robotics-intelligent-systems/jfxai4crm
+    scope: hotel-management capability, guest/customer management
+    linked_travel_source: robotics-intelligent-systems/jfxotbs
+
+  restaurant_food_service:
+    source: robotics-intelligent-systems/jfxai4ftm
+    scope: restaurant, food truck, POS, orders, kitchen, delivery
+
+  truck_fleet:
+    source: robotics-intelligent-systems/fleet-management
+    scope: truck fleet, telemetry, backend fleet services
+
+  ecommerce:
+    source: robotics-intelligent-systems/jfxai4ohs
+    scope: B2B commerce, marketplace, procurement, catalog, fulfillment
+
+  recruitment:
+    source: robotics-intelligent-systems/jfxai4rts
+
+  microfactory:
+    source: robotics-intelligent-systems/jfxosms
+
+  farm:
+    source: robotics-intelligent-systems/jfxfmis
+
+  air_transport:
+    source: robotics-intelligent-systems/jfxotbs
+
+  trading:
+    source: robotics-intelligent-systems/jfxai4ats
+
+  open_banking:
+    source: robotics-intelligent-systems/jfxai4obs
+
+  balanced_scorecard:
+    source: robotics-intelligent-systems/jfxbsc
+```
+
+---
+
+# 190. Recommended Expanded MVP
+
+Recommended order:
+
+```text
+Phase A
+JFXLMS + JFXAI4BPM
+→ workforce/role training workflow
+
+Phase B
+JFXAI4FTM + fleet-management
+→ restaurant order + delivery
+
+Phase C
+JFXAI4OHS + JFXAI4OBS
+→ e-commerce order + open-banking payment
+
+Phase D
+Hospitality + JFXOTBS
+→ hotel + travel itinerary
+
+Phase E
+JFXAI4MAD tourism/community
+→ activity and destination orchestration
+
+Phase F
+JFXBSC
+→ unified KPI / strategy dashboard
+```
+
+Do not begin with the optional relationship workflow; integrate it only after privacy, consent, safety, data-separation, and age-gating controls are independently validated.
+
+---
+
+# 191. First End-to-End Commerce Slice
+
+```text
+Restaurant Inventory Low
+       ↓
+JFXAI4BPM
+       ↓
+JFXAI4OHS
+Supplier / Product Selection
+       ↓
+Approval
+       ↓
+JFXAI4OBS
+Payment
+       ↓
+fleet-management
+Truck Dispatch
+       ↓
+JFXAI4FTM
+Goods Receipt
+       ↓
+JFXBSC
+Cost / SLA / Margin KPI
+```
+
+This slice validates:
+
+- procurement;
+- payment;
+- transport;
+- restaurant inventory;
+- process telemetry;
+- strategic KPI feedback.
+
+---
+
+# 192. Second End-to-End Tourism Slice
+
+```text
+Traveler Creates Trip
+       ↓
+JFXAI4MAD
+Destination / Activity
+       ↓
+JFXOTBS
+Travel Booking
+       ↓
+Hospitality
+Hotel Reservation
+       ↓
+fleet-management
+Ground Transfer
+       ↓
+JFXAI4FTM
+Restaurant Reservation / Order
+       ↓
+JFXAI4OBS
+Payment
+       ↓
+JFXBSC
+Experience / Revenue / SLA KPIs
+```
+
+---
+
+# 193. Third End-to-End Learning Slice
+
+```text
+Hotel / Restaurant / Fleet Role
+       ↓
+JFXAI4BPM detects required skills
+       ↓
+JFXLMS
+Learning Path
+       ↓
+Simulation / Assessment
+       ↓
+Validated Skill Evidence
+       ↓
+Operational Role Enabled
+       ↓
+Performance Metrics
+       ↓
+JFXBSC
+Learning & Growth Perspective
+```
+
+---
+
+# 194. Updated Final Architecture
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│                              JFXAI4BPM                               │
+│         BUSINESS PROCESS SIMULATION & AUTOMATION CONTROL PLANE       │
+└──────────────────────────────────┬───────────────────────────────────┘
+                                   │
+          Workflow · Rules · Agents · Simulation · Human Tasks
+                                   │
+                                   ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│                     CANONICAL INTEGRATION BUS                        │
+│           REST · Events · Webhooks · MCP · Zato · Audit             │
+└──────────────────────────────────┬───────────────────────────────────┘
+                                   │
+      ┌──────────────┬─────────────┼─────────────┬──────────────┐
+      ▼              ▼             ▼             ▼              ▼
+   JFXLMS          JFXCMS       JFXAI4MAD    Hospitality     JFXAI4FTM
+  Learning     Collaboration   Tourism/Social   Hotels      Restaurants
+      │              │             │             │              │
+      └──────────────┴─────────────┼─────────────┴──────────────┘
+                                   │
+      ┌──────────────┬─────────────┼─────────────┬──────────────┐
+      ▼              ▼             ▼             ▼              ▼
+Fleet/Trucks     JFXAI4OHS     JFXOTBS       JFXAI4OBS      JFXAI4ATS
+ Logistics      E-Commerce   Air/Travel      Open Banking      Trading
+      │              │             │             │              │
+      └──────────────┴─────────────┼─────────────┴──────────────┘
+                                   ▼
+                                 JFXBSC
+                   BALANCED SCORECARD / KPI / OKR
+```
+
+---
+
+# 195. Architectural Principle
+
+> **JFXAI4BPM coordinates the journey; JFXLMS develops skills; JFXAI4MAD handles tourism/community and separately governed adult opt-in social discovery; hospitality and JFXAI4FTM operate lodging and food-service processes; fleet-management moves people/goods; JFXAI4OHS manages commerce and procurement; JFXAI4OBS manages authorized financial flows; and JFXBSC closes the loop with strategic measurement.**
+
+---
+
+# 196. Disclaimer
+
+This document is an integration architecture proposal based on the current project descriptions and verified repository capabilities.
+
+It does not claim that every project is already deployed or natively connected.
+
+Production deployments must validate:
+
+- actual APIs;
+- licensing;
+- data contracts;
+- financial regulation;
+- payment and open-banking rules;
+- tourism/hospitality regulations;
+- food-safety requirements;
+- transport/fleet requirements;
+- privacy and consent;
+- adult age-gating for relationship features;
+- security;
+- human approval for consequential actions.
+
+Simulation results, AI recommendations, and KPI forecasts are decision-support outputs and should not be represented as guaranteed real-world outcomes.
