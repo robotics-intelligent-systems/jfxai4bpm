@@ -1,6 +1,4 @@
-# JFXAI4BPM + JFXAI4MOMS
-
-## Oceanic Mining, Business Process Simulation and Operations Integration
+# Agentic AI Oceanic Mining, Business Process Simulation and Operations Integration
 
 **Architecture proposal · Revision 1.0 · 12 September 2026**
 
